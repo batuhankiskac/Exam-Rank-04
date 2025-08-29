@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <sys/types.h>
 
-int	ft_popen(const char *file, char *const argv[], char type)
-{
+int	ft_popen(const char *file, char *const argv[], char type) {
 	int pipe_fd[2];
 	pid_t pid;
 
@@ -12,23 +11,18 @@ int	ft_popen(const char *file, char *const argv[], char type)
 	if (pipe(pipe_fd) == -1)
 		return (-1);
 	pid = fork();
-	if (pid == -1)
-	{
+	if (pid == -1) {
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 		return (-1);
 	}
-	if (pid == 0)
-	{
-		if (type == 'r')
-		{
+	if (pid == 0) {
+		if (type == 'r') {
 			close(pipe_fd[0]);
 			if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
 				exit(EXIT_FAILURE);
 			close(pipe_fd[1]);
-		}
-		else
-		{
+		} else {
 			close(pipe_fd[1]);
 			if (dup2(pipe_fd[0], STDIN_FILENO) == -1)
 				exit(EXIT_FAILURE);
@@ -37,13 +31,11 @@ int	ft_popen(const char *file, char *const argv[], char type)
 		execvp(file, argv);
 		exit(EXIT_FAILURE);
 	}
-	if (type == 'r')
-	{
+	if (type == 'r') {
 		close(pipe_fd[1]);
 		return (pipe_fd[0]);
 	}
-	if (type == 'w')
-	{
+	if (type == 'w') {
 		close(pipe_fd[0]);
 		return (pipe_fd[1]);
 	}
