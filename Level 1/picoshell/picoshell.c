@@ -4,7 +4,7 @@
 #include <sys/wait.h>
 
 int    picoshell(char **cmds[]) {
-	int num_cmds;
+	int num_cmds = 0;
 
 	while (!cmds[num_cmds])
 		num_cmds++;
