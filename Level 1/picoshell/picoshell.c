@@ -30,7 +30,7 @@ int    picoshell(char **cmds[]) {
 		}
 		if (pid == 0) {
 			if (prev_fd != -1) {
-				if (dup2(pipe_fd[1], STDIN_FILENO) == -1)
+				if (dup2(prev_fd, STDIN_FILENO) == -1)
 					exit(1);
 				close(prev_fd);
 			}
