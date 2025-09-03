@@ -33,10 +33,10 @@ int	sandbox(void (*f)(void), unsigned int timeout, bool verbose) {
 		exit(0);
 	}
 	alarm(timeout);
-	if (waitpid(pid, &status, 0) == -1) {
+	if (waitpid(pid, &status, NULL) == -1) {
 		if (g_timeout_flag) {
 			kill(pid, SIGKILL);
-			waitpid(pid, &status, 0);
+			waitpid(pid, &status, NULL);
 			if (verbose)
 				printf("Bad function: timed out after %u seconds\n", timeout);
 			return (0);
