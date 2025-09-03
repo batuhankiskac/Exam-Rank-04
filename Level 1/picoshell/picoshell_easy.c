@@ -14,29 +14,16 @@ int    picoshell(char **cmds[]) {
 	if (num_cmds == 0)
 		return (0);
 	for (int i = 0; i < num_cmds; i++) {
-		if (i < num_cmds - 1) {
-			if (pipe(pipe_fd) == -1)
-				return (1);
-		}
+		if (i < num_cmds - 1)
+            pipe(pipe_fd);
 		pid = fork();
-		if (pid == -1) {
-			if (prev_fd != -1)
-				close(prev_fd);
-			if (i < num_cmds - 1) {
-				close(pipe_fd[0]);
-				close(pipe_fd[1]);
-			}
-			return (1);
-		}
 		if (pid == 0) {
 			if (prev_fd != -1) {
-				if (dup2(pipe_fd[1], STDIN_FILENO) == -1)
-					exit(1);
+				dup2(prev_fd, STDIN_FILENO);
 				close(prev_fd);
 			}
 			if (i < num_cmds - 1) {
-				if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
-					exit(1);
+				dup2(pipe_fd[1], STDOUT_FILENO);
 				close(pipe_fd[0]);
 				close(pipe_fd[1]);
 			}
