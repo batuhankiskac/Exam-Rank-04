@@ -24,7 +24,7 @@ node    *new_node(node n)
 	return (ret);
 }
 
-void	destroy_tree(node *n)
+void    destroy_tree(node *n)
 {
 	if (!n)
 		return ;
@@ -95,7 +95,6 @@ static node *parse_term(char **s) {
 	}
 	return (left);
 }
-
 
 node    *parse_expr(char **s) {
 	node *left = parse_term(s);
