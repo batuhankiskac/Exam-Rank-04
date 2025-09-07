@@ -51,20 +51,20 @@ static json parse_map(FILE *stream) {
 	}
 	if (peek(stream) != '}') {
 		do {
-		p.key = parse_raw_string(stream);
-		if (g_error)
-			goto cleanup;
-		if (!expect(stream, ':')) {
-			g_error = 1;
-			goto cleanup;
-		}
-		p.value = parse_json(stream);
-		if (g_error)
-			goto cleanup;
-		j.map.size++;
-		j.map.data = realloc(j.map.data, j.map.size * (sizeof(pair)));
-		j.map.data[j.map.size - 1] = p;
-		p.key = NULL;
+			p.key = parse_raw_string(stream);
+			if (g_error)
+				goto cleanup;
+			if (!expect(stream, ':')) {
+				g_error = 1;
+				goto cleanup;
+			}
+			p.value = parse_json(stream);
+			if (g_error)
+				goto cleanup;
+			j.map.size++;
+			j.map.data = realloc(j.map.data, j.map.size * sizeof(pair));
+			j.map.data[j.map.size - 1] = p;
+			p.key = NULL;
 		} while (accept(stream, ','));
 	}
 	if (!expect(stream, '}')) {
@@ -77,9 +77,8 @@ cleanup:
 	free(p.key);
 	free_json(j);
 	memset(&j, 0, sizeof(json));
-	return(j);
+	return (j);
 }
-
 
 static json parse_json(FILE *stream) {
 	json j;
