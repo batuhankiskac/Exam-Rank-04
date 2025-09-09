@@ -1,11 +1,11 @@
 #define _POSIX_C_SOURCE 199309L
 
+#include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <signal.h>
 #include <stdbool.h>
 #include <string.h>
+#include <signal.h>
 #include <sys/wait.h>
 
 static volatile sig_atomic_t g_timeout_flag = 0;
