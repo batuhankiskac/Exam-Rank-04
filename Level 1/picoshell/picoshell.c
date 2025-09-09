@@ -35,9 +35,9 @@ int    picoshell(char **cmds[]) {
 				close(prev_fd);
 			}
 			if (i < num_cmds - 1) {
+				close(pipe_fd[0]);
 				if (dup2(pipe_fd[1], STDOUT_FILENO) == -1)
 					exit(1);
-				close(pipe_fd[0]);
 				close(pipe_fd[1]);
 			}
 			execvp(cmds[i][0], cmds[i]);
