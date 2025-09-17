@@ -134,9 +134,7 @@ int main(int argc, char **argv)
 	char *input = argv[1];
 	node *tree = parse_expr(&input);
 	if (!tree || *input != '\0') {
-		if (tree == NULL && *input != '\0')
-			unexpected(*input);
-		else if (tree != NULL && *input != '\0')
+		if (tree != NULL && *input != '\0')
 			unexpected(*input);
 		if (tree)
 			destroy_tree(tree);
